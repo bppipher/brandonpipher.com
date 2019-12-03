@@ -46,6 +46,15 @@ social:
 - icon: kaggle
   icon_pack: fab
   link: https://www.kaggle.com/brandonpipher
+- icon: stack-exchange
+  icon_pack: fab
+  link: 404.html
+- icon: twitter
+  icon_pack: fab
+  link: 404.html
+- icon: instagram
+  icon_pack: fab
+  link: 404.html
   
 # Link to a PDF of your resume/CV from the About widget.
 # To enable, copy your resume/CV to `static/files/cv.pdf` and uncomment the lines below.

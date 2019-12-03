@@ -1,0 +1,35 @@
+---
+title: Testing Blogdown
+author: Brandon P. Pipher
+date: '2019-12-03'
+slug: test-blogdown
+categories:
+  - blogdown
+  - hugo
+  - netlify
+tags: []
+subtitle: 'Understanding the post process'
+summary: 'A short example post'
+authors:
+  - admin
+lastmod: '2019-12-03T13:41:56-05:00'
+featured: yes
+image:
+  placement: 1
+  caption: 'Photo by Brandon P. Pipher'
+  focal_point: ''
+  preview_only: false
+projects: []
+math: true
+diagram: true
+---
+Testing code execution:
+```{r}
+head(iris)
+2+9
+pairs(iris)
+```
+Testing LaTeX:
+
+$\sum{x^2+\log(x)}$
+
