@@ -15,7 +15,7 @@ role:
 # Organizations/Affiliations
 organizations:
 - name:
-  url: ""
+  url: "www.brandonpipher.com"
 
 # Short bio (displayed in user profile at end of posts)
 bio:
@@ -45,10 +45,7 @@ social:
   link: https://orcid.org/0000-0002-2553-3212
 - icon: kaggle
   icon_pack: fab
-  link: 404.html
-- icon: cv
-  icon_pack: ai
-  link: files/cv/cv.pdf
+  link: https://www.kaggle.com/brandonpipher
   
 # Link to a PDF of your resume/CV from the About widget.
 # To enable, copy your resume/CV to `static/files/cv.pdf` and uncomment the lines below.
@@ -66,4 +63,6 @@ user_groups:
 - Visitors
 ---
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque elit, tristique placerat feugiat ac, facilisis vitae arcu. Proin eget egestas augue. Praesent ut sem nec arcu pellentesque aliquet. Duis dapibus diam vel metus tempus vulputate.
+A graduate student at Kent State University.  
+
+My directory is [here](https://www.kent.edu/math/brandon-pipher).
