@@ -48,7 +48,7 @@ social:
   link: https://www.kaggle.com/brandonpipher
 - icon: stack-exchange
   icon_pack: fab
-  link: 404.html
+  link: https://stackexchange.com/users/11701110/bpipher?tab=accounts
 - icon: twitter
   icon_pack: fab
   link: 404.html
