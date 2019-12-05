@@ -31,6 +31,4 @@ Testing LaTeX:
 
 $\sum{x^2+\log(x)}$
 
-Testing file access:
-
-http://dl.brandonpipher.com/files/thesis.pdf
+[Testing file access](dl.brandonpipher.com/files/thesis.pdf)
