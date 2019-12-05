@@ -4,9 +4,7 @@ author: Brandon P. Pipher
 date: '2019-12-03'
 slug: test-blogdown
 categories:
-  - blogdown
   - hugo
-  - netlify
 tags: []
 subtitle: 'Understanding the post process'
 summary: 'A short example post'
