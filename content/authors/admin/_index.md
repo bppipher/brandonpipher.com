@@ -24,9 +24,9 @@ interests:
 
 education:
   courses:
-  - course: MSc in Applied Mathematics
+  - course: M.S. in Applied Mathematics
     institution: Kent State University (2019)
-  - course: BSc in Mathematics
+  - course: B.S. in Mathematics
     institution: University of Akron (2017)
 
 # Social/Academic Networking
@@ -49,12 +49,6 @@ social:
 - icon: stack-exchange
   icon_pack: fab
   link: https://stackexchange.com/users/11701110/bpipher?tab=accounts
-- icon: twitter
-  icon_pack: fab
-  link: 404.html
-- icon: instagram
-  icon_pack: fab
-  link: 404.html
   
 # Link to a PDF of your resume/CV from the About widget.
 # To enable, copy your resume/CV to `static/files/cv.pdf` and uncomment the lines below.
