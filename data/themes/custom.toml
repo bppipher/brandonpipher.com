@@ -5,11 +5,11 @@ name = "Custom"
 light = false
 
 # Primary
-primary = "rgb(73, 148, 203)"
+primary = "rgb(73, 148, 203)" # 19, 82, 151
 
 # Menu
 menu_primary = "rgb(33, 37, 41)"
-menu_text = "rgb(73, 148, 203)"
+menu_text = "rgb(73, 148, 203)" # 19, 82, 151
 menu_text_active = "rgba(255,255,255,1)"
 menu_title = "rgb(153, 153, 153)"
 
