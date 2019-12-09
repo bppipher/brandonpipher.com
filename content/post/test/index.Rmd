@@ -34,3 +34,9 @@ $\sum{x^2+\log(x)}$
 Testing file access:
 
 http://dl.brandonpipher.com/files/thesis.pdf
+
+Testing site access:
+
+http://rstudio.brandonpipher.com/
+
+
