@@ -1,4 +1,14 @@
-{{ if site.Params.comments.engine | and (index site.Params.comments.commentable .Type) | and (ne .Params.commentable false) | or .Params.commentable }}
+<script src="https://utteranc.es/client.js"
+        repo=" bppipher / brandonpipher.com "
+        issue-term="pathname"
+        label="Comments"
+        theme="photon-dark"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+<!---{{ if site.Params.comments.engine | and (index site.Params.comments.commentable .Type) | and (ne .Params.commentable false) | or .Params.commentable }}
 <section id="comments">
   {{ if eq site.Params.comments.engine 1 }}
     {{ partial "comments/disqus.html" . }}
@@ -6,4 +16,4 @@
     {{ partial "comments/commento.html" . }}
   {{ end }}
 </section>
-{{ end }}
+{{ end }} -->
