@@ -66,6 +66,6 @@ user_groups:
 - Visitors
 ---
 
-A graduate student at Kent State University.  
+A Graduate Student and Adjunct Faculty member at Kent State University.
 
-My directory is [here](https://www.kent.edu/math/brandon-pipher).
+My current faculty directory can be found [here](https://www.kent.edu/math/brandon-pipher).

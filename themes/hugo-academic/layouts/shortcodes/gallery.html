@@ -19,7 +19,8 @@
   {{ $images := ($resource_page.Resources.ByType "image").Match $album_path }}
   {{ with $images }}
   {{ range $images }}
-    {{ $image := .Resize "x190" }}
+    <!--{{ $image := .Resize "x190" }}-->
+    {{ $image := .Fill "360x240 left" }}
     {{/* Check if the user set a caption for this image */}}
     {{ $filename := path.Base .Name }}
     {{ $caption := "" }}
