@@ -20,7 +20,7 @@ copyright = "&copy; {year}, Brandon P. Pipher.  All rights reserved."
 ############################
 
 # Name of Academic theme folder in `themes/`.
-theme = "hugo-academic-4.6.2"
+theme = "hugo-academic-4.8.0"
 
 # Get last modified date for content from Git?
 enableGitInfo = false
