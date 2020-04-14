@@ -20,7 +20,6 @@ image:
 projects: []
 math: true
 diagram: true
-draft: true
 ---
 Testing code execution:
 ```{r}
