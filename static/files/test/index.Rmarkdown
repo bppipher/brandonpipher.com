@@ -39,4 +39,5 @@ Testing site access:
 
 http://rstudio.brandonpipher.com/
 
-
+options(blogdown.new_bundle = TRUE)
+options(blogdown.author = 'Brandon P. Pipher')

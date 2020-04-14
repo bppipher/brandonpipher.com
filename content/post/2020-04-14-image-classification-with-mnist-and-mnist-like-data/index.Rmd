@@ -1,0 +1,27 @@
+---
+title: Image Classification with MNIST and MNIST-like data
+author: Brandon P. Pipher
+date: '2020-04-14'
+slug: []
+categories:
+  - Machine Learning
+  - Image Classification
+tags:
+  - keras
+  - R
+  - tensorflow
+subtitle: 'Utilizing keras in R'
+summary: 'Utilizing keras in R on MNIST-style datasets'
+authors: []
+lastmod: '2020-04-14T14:09:00-04:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+draft: true
+---
+```{r}
+library(keras)
+```
