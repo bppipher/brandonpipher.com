@@ -57,3 +57,4 @@ rotate <- function(x){
 
 # library(imager) 
 # plot(cifar10$train$x[89,,,] %>% as.cimg %>% imrotate(,angle = 90), main = cifar10$test$y[89])
+# blogdown::hugo_cmd("--templateMetrics")
