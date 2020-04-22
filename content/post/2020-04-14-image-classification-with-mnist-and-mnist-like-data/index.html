@@ -1,5 +1,5 @@
 ---
-title: Image Classification with MNIST and MNIST-like data
+title: Neural Network Image Classification
 author: Brandon P. Pipher
 date: '2020-04-14'
 slug: []
@@ -10,19 +10,167 @@ tags:
   - keras
   - R
   - tensorflow
-subtitle: 'Utilizing keras in R'
-summary: 'Utilizing keras in R on MNIST-style datasets'
+subtitle: 'Utilizing keras in R on MNIST-style data sets'
+summary: 'Utilizing keras in R on MNIST-style data sets'
 authors: []
 lastmod: '2020-04-14T14:09:00-04:00'
 featured: no
 image:
-  caption: ''
+  caption: 'Entacmaea Quadricolor'
   focal_point: ''
   preview_only: no
 projects: []
 draft: true
+output:
+  blogdown::html_page:
+    toc: true
 ---
 
 
+<div id="TOC">
+<ul>
+<li><a href="#keras-and-beyond">Keras and beyond</a></li>
+<li><a href="#mnist">MNIST</a></li>
+<li><a href="#fashion-mnist">Fashion MNIST</a></li>
+<li><a href="#cifar-10">CIFAR-10</a></li>
+</ul>
+</div>
 
-<pre class="r"><code>library(keras)</code></pre>
+<div id="keras-and-beyond" class="section level1">
+<h1>Keras and beyond</h1>
+<p>Keras is a high-level neural networks API developed with a focus on enabling fast experimentation. Originally written in Python, the library <code>keras</code> is part of a series of R interfaces to TensorFlow.</p>
+<p>TensorFlow is an open-source machine learning framework from Google which includes the Neural Network library of Keras.</p>
+<p>The goal in this post is to do some low level examples on MNIST-like data sets and act as an introduction in applying neural network classifications techniques. For the sake of brevity this post is short on the details with the intention of being revisited.</p>
+</div>
+<div id="mnist" class="section level1">
+<h1>MNIST</h1>
+<p>The <a href="https://en.wikipedia.org/wiki/MNIST_database">MNIST</a> database is composed of handwritten digits and is a common “Hello, World!” data set for neural networks.</p>
+<pre class="r fold-show"><code>library(keras)
+library(tidyverse)
+library(ggplot2)
+# Used for side-by-side ggplots (similar to par(mfrow = c( , )))
+library(gridExtra)</code></pre>
+<pre class="r fold-show"><code>mnist &lt;- dataset_mnist()</code></pre>
+<p>Taking a look at an example of the images:</p>
+<pre class="r fold-show"><code># Plotting helper; mnist is global var
+mnistplot &lt;- function(picked){
+  mnist$train$x[picked,,] %&gt;% 
+  # Wrangle
+  as_tibble() %&gt;% 
+  rowid_to_column(&quot;Y&quot;) %&gt;% 
+  pivot_longer(-Y,names_to = &quot;X&quot;, values_to = &quot;PIX&quot;) %&gt;% 
+  mutate(X = as.numeric(gsub(&quot;V&quot;,&quot;&quot;,X))) %&gt;%
+  mutate(Y = abs(Y - max(Y)+1)) %&gt;%
+  # Graph
+  ggplot(aes(X,Y, fill = PIX)) + 
+  geom_tile() + 
+  scale_fill_gradient(low=&quot;white&quot;, high=&quot;black&quot;, guide = FALSE) +
+  ggtitle(paste(&quot;Handwritten number:&quot;,mnist$train$y[picked])) +
+  theme_void()
+}
+# Grid graph
+pickcount &lt;- 9
+mnistex &lt;- lapply(1:pickcount, mnistplot)
+mnistexplot &lt;- arrangeGrob(grobs = mnistex,
+                           ncol = 3,
+                           nrow = 3)
+plot(mnistexplot)</code></pre>
+<p><img src="/post/2020-04-14-image-classification-with-mnist-and-mnist-like-data/index_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<pre class="r fold-show"><code>mnist.train = mnist$train
+mnist.test  = mnist$test
+# Normalization; Speeds training time
+mnist.train$x &lt;- mnist.train$x/255
+mnist.test$x  &lt;- mnist.test$x/255</code></pre>
+<pre class="r fold-show"><code>mnist.model &lt;- keras_model_sequential() %&gt;%
+  layer_flatten(input_shape = c(28,28)) %&gt;%
+  layer_dense(units = 128, activation = &quot;relu&quot;) %&gt;%
+  layer_dropout(0.2) %&gt;%
+  layer_dense(10, activation = &quot;softmax&quot;)</code></pre>
+<pre class="r fold-show"><code>summary(mnist.model)</code></pre>
+<pre><code>## Model: &quot;sequential&quot;
+## ________________________________________________________________________________
+## Layer (type)                        Output Shape                    Param #     
+## ================================================================================
+## flatten (Flatten)                   (None, 784)                     0           
+## ________________________________________________________________________________
+## dense (Dense)                       (None, 128)                     100480      
+## ________________________________________________________________________________
+## dropout (Dropout)                   (None, 128)                     0           
+## ________________________________________________________________________________
+## dense_1 (Dense)                     (None, 10)                      1290        
+## ================================================================================
+## Total params: 101,770
+## Trainable params: 101,770
+## Non-trainable params: 0
+## ________________________________________________________________________________</code></pre>
+<pre class="r fold-show"><code>mnist.model %&gt;% 
+  compile(
+    loss = &quot;sparse_categorical_crossentropy&quot;,
+    optimizer = &quot;adam&quot;,
+    metrics = &quot;accuracy&quot;
+  )</code></pre>
+<pre class="r fold-show"><code>mnist.model %&gt;%
+  fit(
+    x = mnist.train$x, y = mnist.train$y,
+    epochs = 5,
+    validation_split = 0.3,
+    verbose = 2
+  )</code></pre>
+<pre class="r fold-show"><code>mnist.predictions &lt;- predict(mnist.model, mnist.test$x)</code></pre>
+<pre class="r fold-show"><code>mnist.model %&gt;% 
+  evaluate(mnist.test$x, mnist.test$y, verbose = 0)</code></pre>
+<pre><code>## $loss
+## [1] 0.08140392
+## 
+## $acc
+## [1] 0.9743</code></pre>
+</div>
+<div id="fashion-mnist" class="section level1">
+<h1>Fashion MNIST</h1>
+<pre class="r fold-show"><code>fashion &lt;- dataset_fashion_mnist()</code></pre>
+<p>Taking a look at an example of the images:</p>
+<pre class="r fold-show"><code># Plotting helper; fashion is global var
+fashionplot &lt;- function(picked){
+  fashion$train$x[picked,,] %&gt;% 
+  # Wrangle
+  as_tibble() %&gt;% 
+  rowid_to_column(&quot;Y&quot;) %&gt;% 
+  pivot_longer(-Y,names_to = &quot;X&quot;, values_to = &quot;PIX&quot;) %&gt;% 
+  mutate(X = as.numeric(gsub(&quot;V&quot;,&quot;&quot;,X))) %&gt;%
+  mutate(Y = abs(Y - max(Y)+1)) %&gt;%
+  # Graph
+  ggplot(aes(X,Y, fill = PIX)) + 
+  geom_tile() + 
+  scale_fill_gradient(low=&quot;white&quot;, high=&quot;black&quot;, guide = FALSE) +
+  ggtitle(paste(&quot;Clothing Category:&quot;,fashion$train$y[picked])) +
+  theme_void()
+}
+# Grid graph
+pickcount &lt;- 9
+fashionex &lt;- lapply(1:pickcount, fashionplot)
+fashionexplot &lt;- arrangeGrob(grobs = fashionex,
+                           ncol = 3,
+                           nrow = 3)
+plot(fashionexplot)</code></pre>
+<p><img src="/post/2020-04-14-image-classification-with-mnist-and-mnist-like-data/index_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<pre class="r fold-show"><code>fashion.test = fashion$test
+fashion.train = fashion$train
+# Normalization; Speeds training time
+fashion.train$x &lt;- mnist.train$x/255
+fashion.test$x  &lt;- mnist.test$x/255</code></pre>
+</div>
+<div id="cifar-10" class="section level1">
+<h1>CIFAR-10</h1>
+<pre class="r fold-show"><code>cifar10 &lt;- dataset_cifar10()</code></pre>
+<p>Taking a look at CIFAR-10 examples is a little trickier as it is a three-dimensional array. For this we will just utilize the <code>imager</code> library:</p>
+<pre class="r fold-show"><code>library(imager)
+par(mfrow = c(2,2))
+for(i in 1:4){
+  plot(cifar10$train$x[i,,,] %&gt;%
+         as.cimg %&gt;%
+         imrotate(,angle = 90),
+       main = cifar10$test$y[i],
+       axes = FALSE)
+}</code></pre>
+<p><img src="/post/2020-04-14-image-classification-with-mnist-and-mnist-like-data/index_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+</div>

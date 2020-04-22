@@ -1,5 +1,5 @@
 ---
-title: Image Classification with MNIST and MNIST-like data
+title: Neural Network Image Classification
 author: Brandon P. Pipher
 date: '2020-04-14'
 slug: []
@@ -10,18 +10,183 @@ tags:
   - keras
   - R
   - tensorflow
-subtitle: 'Utilizing keras in R'
-summary: 'Utilizing keras in R on MNIST-style datasets'
+subtitle: 'Utilizing keras in R on MNIST-style data sets'
+summary: 'Utilizing keras in R on MNIST-style data sets'
 authors: []
 lastmod: '2020-04-14T14:09:00-04:00'
 featured: no
 image:
-  caption: ''
+  caption: 'Entacmaea Quadricolor'
   focal_point: ''
   preview_only: no
 projects: []
 draft: true
+output:
+  blogdown::html_page:
+    toc: true
 ---
-```{r}
-library(keras)
+
+```{r, echo = FALSE}
+# https://github.com/rstudio/rmarkdown/pull/1602
+knitr::opts_chunk$set(class.source='fold-show', message = FALSE, warning = FALSE, echo = TRUE)
 ```
+
+# Keras and beyond
+Keras is a high-level neural networks API developed with a focus on enabling fast experimentation.  Originally written in Python, the library `keras` is part of a series of R interfaces to TensorFlow.  
+
+TensorFlow is an open-source machine learning framework from Google which includes the Neural Network library of Keras.
+
+The goal in this post is to do some low level examples on MNIST-like data sets and act as an introduction in applying neural network classifications techniques.  For the sake of brevity this post is short on the details with the intention of being revisited.
+
+# MNIST
+The [MNIST](https://en.wikipedia.org/wiki/MNIST_database) database is composed of handwritten digits and is a common "Hello, World!" data set for neural networks.
+
+
+```{r, message = FALSE, warning = FALSE}
+library(keras)
+library(tidyverse)
+library(ggplot2)
+# Used for side-by-side ggplots (similar to par(mfrow = c( , )))
+library(gridExtra)
+```
+
+```{r, cache = TRUE, warning = FALSE}
+mnist <- dataset_mnist()
+```
+
+Taking a look at an example of the images:
+
+```{r, error = FALSE, message = FALSE, cache = TRUE}
+# Plotting helper; mnist is global var
+mnistplot <- function(picked){
+  mnist$train$x[picked,,] %>% 
+  # Wrangle
+  as_tibble() %>% 
+  rowid_to_column("Y") %>% 
+  pivot_longer(-Y,names_to = "X", values_to = "PIX") %>% 
+  mutate(X = as.numeric(gsub("V","",X))) %>%
+  mutate(Y = abs(Y - max(Y)+1)) %>%
+  # Graph
+  ggplot(aes(X,Y, fill = PIX)) + 
+  geom_tile() + 
+  scale_fill_gradient(low="white", high="black", guide = FALSE) +
+  ggtitle(paste("Handwritten number:",mnist$train$y[picked])) +
+  theme_void()
+}
+# Grid graph
+pickcount <- 9
+mnistex <- lapply(1:pickcount, mnistplot)
+mnistexplot <- arrangeGrob(grobs = mnistex,
+                           ncol = 3,
+                           nrow = 3)
+plot(mnistexplot)
+```
+
+```{r}
+mnist.train = mnist$train
+mnist.test  = mnist$test
+# Normalization; Speeds training time
+mnist.train$x <- mnist.train$x/255
+mnist.test$x  <- mnist.test$x/255
+```
+
+```{r}
+mnist.model <- keras_model_sequential() %>%
+  layer_flatten(input_shape = c(28,28)) %>%
+  layer_dense(units = 128, activation = "relu") %>%
+  layer_dropout(0.2) %>%
+  layer_dense(10, activation = "softmax")
+```
+
+```{r}
+summary(mnist.model)
+```
+```{r}
+mnist.model %>% 
+  compile(
+    loss = "sparse_categorical_crossentropy",
+    optimizer = "adam",
+    metrics = "accuracy"
+  )
+```
+
+```{r, cache = TRUE, warning = FALSE}
+mnist.model %>%
+  fit(
+    x = mnist.train$x, y = mnist.train$y,
+    epochs = 5,
+    validation_split = 0.3,
+    verbose = 2
+  )
+```
+```{r, cache = TRUE}
+mnist.predictions <- predict(mnist.model, mnist.test$x)
+```
+
+```{r, cache = TRUE}
+mnist.model %>% 
+  evaluate(mnist.test$x, mnist.test$y, verbose = 0)
+```
+# Fashion MNIST
+
+```{r, cache = TRUE}
+fashion <- dataset_fashion_mnist()
+```
+
+Taking a look at an example of the images:
+
+```{r, error = FALSE, message = FALSE, warning = FALSE, cache = TRUE}
+# Plotting helper; fashion is global var
+fashionplot <- function(picked){
+  fashion$train$x[picked,,] %>% 
+  # Wrangle
+  as_tibble() %>% 
+  rowid_to_column("Y") %>% 
+  pivot_longer(-Y,names_to = "X", values_to = "PIX") %>% 
+  mutate(X = as.numeric(gsub("V","",X))) %>%
+  mutate(Y = abs(Y - max(Y)+1)) %>%
+  # Graph
+  ggplot(aes(X,Y, fill = PIX)) + 
+  geom_tile() + 
+  scale_fill_gradient(low="white", high="black", guide = FALSE) +
+  ggtitle(paste("Clothing Category:",fashion$train$y[picked])) +
+  theme_void()
+}
+# Grid graph
+pickcount <- 9
+fashionex <- lapply(1:pickcount, fashionplot)
+fashionexplot <- arrangeGrob(grobs = fashionex,
+                           ncol = 3,
+                           nrow = 3)
+plot(fashionexplot)
+```
+
+```{r}
+fashion.test = fashion$test
+fashion.train = fashion$train
+# Normalization; Speeds training time
+fashion.train$x <- mnist.train$x/255
+fashion.test$x  <- mnist.test$x/255
+```
+
+# CIFAR-10
+
+```{r, cache = TRUE}
+cifar10 <- dataset_cifar10()
+```
+
+Taking a look at CIFAR-10 examples is a little trickier as it is a three-dimensional array.  For this we will just utilize the `imager` library:
+
+```{r}
+library(imager)
+par(mfrow = c(2,2))
+for(i in 1:4){
+  plot(cifar10$train$x[i,,,] %>%
+         as.cimg %>%
+         imrotate(,angle = 90),
+       main = cifar10$test$y[i],
+       axes = FALSE)
+}
+```
+
+
