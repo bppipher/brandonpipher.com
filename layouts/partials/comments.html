@@ -1,8 +1,10 @@
-<script src="https://utteranc.es/client.js"
-        repo="bppipher/brandonpipher.com"
-        issue-term="pathname"
-        label="Comments"
-        theme="photon-dark"
-        crossorigin="anonymous"
-        async>
-</script>
+{{ if not .Params.noComment }}
+        <script src="https://utteranc.es/client.js"
+                repo="bppipher/brandonpipher.com"
+                issue-term="pathname"
+                label="Comments"
+                theme="photon-dark"
+                crossorigin="anonymous"
+                async>
+        </script>
+{{ end }}

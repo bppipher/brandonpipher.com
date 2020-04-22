@@ -5,8 +5,7 @@ date: '2020-03-25'
 thumbnail: "/post/2020-03-25-handling-github-files-in-r_files/IMG_4427.jpg"
 slug: handling-github-files-in-r
 categories:
-  - Github
-  - Data
+  - Data Analysis
 tags:
   - Github
   - R
