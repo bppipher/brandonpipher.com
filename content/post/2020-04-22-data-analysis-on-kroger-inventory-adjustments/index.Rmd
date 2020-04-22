@@ -7,7 +7,7 @@ categories:
   - Data Analysis
 tags:
   - R
-  - Tidyerse
+  - Tidyverse
   - ggplot2
 subtitle: 'Data analysis on a month of Adjustment Unit Quantities'
 summary: 'Data analysis on a month of Adjustment Unit Quantities'
