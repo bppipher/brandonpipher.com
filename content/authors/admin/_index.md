@@ -66,12 +66,10 @@ user_groups:
 - Visitors
 ---
 
-An aspiring Data Scientist, former Graduate student, and Adjunct Faculty member at [Kent State University](https://www.kent.edu/).
+An aspiring Data Scientist and Statistician.  
 
-My current faculty directory can be found [here](https://www.kent.edu/math/brandon-pipher).
+I am a recent graduate and current Adjunct Faculty member at [Kent State University](https://www.kent.edu/). My current faculty directory can be found [here](https://www.kent.edu/math/brandon-pipher) and my academic focus was in Statistics and Probability with broad interests in statistical machine learning.
 
-My academic focus was in Statistics and Probability with broad interests in statistical machine learning.
-
-My work included measure-theoretic topics in Probability such as Martingale theory and Brownian Motion, Statistical Quality Control and Sequential Analysis, Multiple Comparison Methods including False Discovery Rates (FDR and fdr), and Supervised-Learning techniques with a focus towards Regression Analysis.
+Some of my work included measure-theoretic topics in Probability such as Martingale theory and Brownian Motion, Statistical Quality Control and Sequential Analysis, Multiple Comparison Methods including False Discovery Rates (FDR and fdr), and Supervised-Learning techniques with a focus towards Regression Analysis.
 
 My Master's Thesis was on regression methods to induce sparsity, with a focus on non-convex penalties for penalized regression.  My thesis can be found [here.](http://rave.ohiolink.edu/etdc/view?acc_num=kent1573056251025985)
