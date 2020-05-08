@@ -16,11 +16,11 @@ authors: []
 lastmod: '2020-04-14T14:09:00-04:00'
 featured: no
 image:
-  caption: 'Entacmaea Quadricolor'
+  caption: ''
   focal_point: ''
   preview_only: no
 projects: []
-draft: false
+draft: true
 output:
   blogdown::html_page:
     toc: true
@@ -50,13 +50,13 @@ library(ggplot2)
 library(gridExtra)
 ```
 
-```{r, cache = TRUE, warning = FALSE}
+```{r, cache = FALSE, warning = FALSE}
 mnist <- dataset_mnist()
 ```
 
 Taking a look at an example of the images:
 
-```{r, error = FALSE, message = FALSE, cache = TRUE}
+```{r, error = FALSE, message = FALSE, cache = FALSE}
 # Plotting helper; mnist is global var
 mnistplot <- function(picked){
   mnist$train$x[picked,,] %>% 
@@ -110,7 +110,7 @@ mnist.model %>%
   )
 ```
 
-```{r, cache = TRUE, warning = FALSE}
+```{r, cache = FALSE, warning = FALSE}
 mnist.model %>%
   fit(
     x = mnist.train$x, y = mnist.train$y,
@@ -119,23 +119,24 @@ mnist.model %>%
     verbose = 2
   )
 ```
-```{r, cache = TRUE}
+```{r, cache = FALSE}
 mnist.predictions <- predict(mnist.model, mnist.test$x)
 ```
 
-```{r, cache = TRUE}
+```{r, cache = FALSE}
 mnist.model %>% 
   evaluate(mnist.test$x, mnist.test$y, verbose = 0)
 ```
+
 # Fashion MNIST
 
-```{r, cache = TRUE}
+```{r, cache = FALSE}
 fashion <- dataset_fashion_mnist()
 ```
 
 Taking a look at an example of the images:
 
-```{r, error = FALSE, message = FALSE, warning = FALSE, cache = TRUE}
+```{r, error = FALSE, message = FALSE, warning = FALSE, cache = FALSE}
 # Plotting helper; fashion is global var
 fashionplot <- function(picked){
   fashion$train$x[picked,,] %>% 
@@ -171,7 +172,7 @@ fashion.test$x  <- mnist.test$x/255
 
 # CIFAR-10
 
-```{r, cache = TRUE}
+```{r, cache = FALSE}
 cifar10 <- dataset_cifar10()
 ```
 
