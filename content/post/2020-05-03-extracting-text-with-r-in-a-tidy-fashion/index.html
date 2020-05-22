@@ -169,7 +169,7 @@ biostat.phdnums &lt;- biostat.phdnums %&gt;%
                  unlist) %&gt;%
   as_tibble() %&gt;%
   type_convert()</code></pre>
-<p>A short explanation of each step is provided below. My regular expressions are on the beginner end due to inexperience, but I believe they handled this specific example well. The site <a href="https://regex101.com/">Regex101</a> was quite helpful with handling the regex.</p>
+<p>A short explanation of each step is provided below. The site <a href="https://regex101.com/">Regex101</a> is helpful with writing regex.</p>
 <pre class="r"><code>biostat.phd &lt;-
   # Ignores column names
   biostat.phdnums[-1] %&gt;%
@@ -268,7 +268,7 @@ biostat.phdnums &lt;- biostat.phdnums %&gt;%
 ## 339                                                 Kalamazoo, MI
 ## 340                                             RNP in Statistics
 ## 341                                                          \tN/A</code></pre>
-<p>Should this process change the original copied data can be found <a href="http://www.brandonpipher.com/post/2020-05-03-extracting-text-with-r-in-a-tidy-fashion/usnewsrank.RDS">here</a>.</p>
+<p>Should this process change the original copied data can be found <a href="http://www.brandonpipher.com/post/2020-05-03-extracting-text-with-r-in-a-tidy-fashion/usnewsrank.RDS">here</a>. Note downloading this might throw an error if you don’t use <code>download.file(path, destfile, mode = "wb")</code> as the default <code>mode = "w"</code> seems to adjust headers.</p>
 <p>Lets clean this by first removing the “RNP in Statistics” entries and selecting only the program and peer ranking. This will leave us with only the schools name and rank.</p>
 <pre class="r"><code>usnewsrankings &lt;- usnewsrankings[usnewsrankings != &quot;RNP in Statistics&quot;][c(TRUE, FALSE, TRUE)]
 usnewsrankings %&gt;% (function(x)rbind(head(x),tail(x)))</code></pre>
