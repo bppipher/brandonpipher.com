@@ -268,7 +268,7 @@ biostat.phdnums &lt;- biostat.phdnums %&gt;%
 ## 339                                                 Kalamazoo, MI
 ## 340                                             RNP in Statistics
 ## 341                                                          \tN/A</code></pre>
-<p>Should this process change the original copied data can be found <a href="http://www.brandonpipher.com/post/2020-05-03-extracting-text-with-r-in-a-tidy-fashion/usnewsrank.Rda">here</a>.</p>
+<p>Should this process change the original copied data can be found <a href="http://www.brandonpipher.com/post/2020-05-03-extracting-text-with-r-in-a-tidy-fashion/usnewsrank.RDS">here</a>.</p>
 <p>Lets clean this by first removing the “RNP in Statistics” entries and selecting only the program and peer ranking. This will leave us with only the schools name and rank.</p>
 <pre class="r"><code>usnewsrankings &lt;- usnewsrankings[usnewsrankings != &quot;RNP in Statistics&quot;][c(TRUE, FALSE, TRUE)]
 usnewsrankings %&gt;% (function(x)rbind(head(x),tail(x)))</code></pre>

@@ -208,7 +208,7 @@ My solution was to simply copy and paste as it skipped going deeper into HTML, X
 ```{r, eval = FALSE, include = FALSE}
 # Used to turn copied text to file
 usnewsrankings = read.table("clipboard", sep = "\n")
-save(usnewsrankings, file = paste0(dirname(rstudioapi::getSourceEditorContext()$path), "/usnewsrank.Rda"))
+saveRDS(usnewsrankings, file = paste0(dirname(rstudioapi::getSourceEditorContext()$path), "/usnewsrank.RDS"))
 ```
 
 ```{r, include = FALSE}
@@ -227,7 +227,7 @@ Taking a look at what this prints as:
 usnewsrankings %>% (function(x)rbind(head(x),tail(x)))
 ```
 
-Should this process change the original copied data can be found [here](http://www.brandonpipher.com/post/2020-05-03-extracting-text-with-r-in-a-tidy-fashion/usnewsrank.Rda).
+Should this process change the original copied data can be found [here](http://www.brandonpipher.com/post/2020-05-03-extracting-text-with-r-in-a-tidy-fashion/usnewsrank.RDS).
 
 Lets clean this by first removing the "RNP in Statistics" entries and selecting only the program and peer ranking.  This will leave us with only the schools name and rank.
 
