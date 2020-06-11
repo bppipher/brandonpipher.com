@@ -200,7 +200,7 @@ Now, regarding USNews Statistics PhD Rankings...
 
 # USNews Rankings
 
-There were Python scripts available to manage this, but that felt just like cheating.  I tried a few tools like [SelectorGadget](https://cran.r-project.org/web/packages/rvest/vignettes/selectorgadget.html) to simplify scraping the relevant portions of the CSS but USNews' format was more unwieldly than it seemed capable of handling. There was also [this](https://github.com/tidyverse/rvest/issues/17) interesting, but old, `rvest` issue about this with a method of handling a different area of USNews rankings.  
+I tried a few tools like [SelectorGadget](https://cran.r-project.org/web/packages/rvest/vignettes/selectorgadget.html) to simplify scraping the relevant portions of the CSS but USNews' format was more unwieldly than it seemed capable of handling. There was also [this](https://github.com/tidyverse/rvest/issues/17) interesting, but old, `rvest` issue about this with a method of handling a different area of USNews rankings.  
 
 My solution was to simply copy and paste as it skipped going deeper into HTML, XML, and CSS entirely with 30 seconds of effort.
 

@@ -43,3 +43,6 @@ Thumbs.db
 
 # For Netlify
 public/
+
+# Other files
+kroger-converted.csv

@@ -248,7 +248,7 @@ biostat.phdnums &lt;- biostat.phdnums %&gt;%
 <p>Now, regarding USNews Statistics PhD Rankings…</p>
 <div id="usnews-rankings" class="section level1">
 <h1>USNews Rankings</h1>
-<p>There were Python scripts available to manage this, but that felt just like cheating. I tried a few tools like <a href="https://cran.r-project.org/web/packages/rvest/vignettes/selectorgadget.html">SelectorGadget</a> to simplify scraping the relevant portions of the CSS but USNews’ format was more unwieldly than it seemed capable of handling. There was also <a href="https://github.com/tidyverse/rvest/issues/17">this</a> interesting, but old, <code>rvest</code> issue about this with a method of handling a different area of USNews rankings.</p>
+<p>I tried a few tools like <a href="https://cran.r-project.org/web/packages/rvest/vignettes/selectorgadget.html">SelectorGadget</a> to simplify scraping the relevant portions of the CSS but USNews’ format was more unwieldly than it seemed capable of handling. There was also <a href="https://github.com/tidyverse/rvest/issues/17">this</a> interesting, but old, <code>rvest</code> issue about this with a method of handling a different area of USNews rankings.</p>
 <p>My solution was to simply copy and paste as it skipped going deeper into HTML, XML, and CSS entirely with 30 seconds of effort.</p>
 <p><img src="usnewsrankings.PNG" /></p>
 <p>The small bit of code to read my clipboard into R:</p>
@@ -288,7 +288,7 @@ usnewsrankings %&gt;% (function(x)rbind(head(x),tail(x)))</code></pre>
   # Making Rank numeric
   # Coercing NA is intended here!
   mutate(Rank = as.numeric(Rank))</code></pre>
-<pre><code>## Warning: NAs introduced by coercion</code></pre>
+<pre><code>## Warning in mask$eval_all_mutate(dots[[i]]): NAs introduced by coercion</code></pre>
 <p>And here we have the USNews ranking cleaned up:</p>
 <pre class="r"><code>usnewsrankings %&gt;% (function(x)rbind(head(x),tail(x)))</code></pre>
 <pre><code>## # A tibble: 12 x 2

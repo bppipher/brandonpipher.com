@@ -58,3 +58,45 @@ rotate <- function(x){
 # library(imager) 
 # plot(cifar10$train$x[89,,,] %>% as.cimg %>% imrotate(,angle = 90), main = cifar10$test$y[89])
 # blogdown::hugo_cmd("--templateMetrics")
+
+###########################################################
+
+library(tidyverse)
+library(tidymodels)
+getOption("contrasts")
+options("contrasts" = c(unordered = "contr.treatment", ordered = "contr.poly"))
+dat <- iris %>%
+  recipe(Sepal.Length ~.) %>%
+  step_dummy(all_nominal()) %>% 
+  prep() %>%
+  juice()
+
+my_fit <- linear_reg() %>%
+  set_mode("regression") %>%
+  set_engine("lm") %>%
+  fit(Sepal.Length ~., dat)
+
+aov(Sepal.Length ~., iris) %>% tidy
+
+anova(my_fit$fit) %>% tidy
+####
+x <- ames_train_baked %>% select(!Sale_Price) %>% as.matrix()
+y <- ames_train_baked %>% select(Sale_Price) %>% as.matrix()
+sparse_fit <- sparsenet::cv.sparsenet(x = x, y = y, ngamma = 40, lambda = seq(100,0.001,length.out = 100))
+pred_sparse <- predict(sparse_fit,ames_test_baked %>% select(!Sale_Price) %>% as.matrix(),"parms.min")
+metr = cbind(pred_sparse, ames_test_baked %>% select(Sale_Price))
+colnames(metr) <- c(".pred","Sale_Price")
+res_sparse <- metr %>%   metrics(truth = Sale_Price,
+                                 estimate = .pred)
+Metrics::rmsle(actual = metr$Sale_Price, predicted = sapply(metr$.pred,function(x) max(x,0)))
+
+###
+x <- ames_train_baked %>% select(!Sale_Price) %>% as.matrix()
+y <- ames_train_baked %>% select(Sale_Price) %>% as.matrix()
+lasso_fit <- glmnet::cv.glmnet(x = x %>% as.matrix, y = y %>% as.matrix)
+pred_lasso <- predict.glmnet(lasso_fit$glmnet.fit,ames_test_baked %>% select(!Sale_Price) %>% as.matrix(), lasso_fit$lambda.min)
+metr = cbind(pred_lasso, ames_test_baked %>% select(Sale_Price))
+colnames(metr) <- c(".pred","Sale_Price")
+res_lasso <- metr %>%   metrics(truth = Sale_Price,
+                                estimate = .pred)
+Metrics::rmsle(actual = metr$Sale_Price, predicted = sapply(metr$.pred,function(x) max(x,0)))

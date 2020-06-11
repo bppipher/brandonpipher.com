@@ -20,6 +20,7 @@ image:
   preview_only: no
 projects: []
 math: true
+draft: true
 ---
 
 
@@ -106,6 +107,7 @@ fig.market +
 <pre class="r"><code># Sorting Average AUG per commodity from increasing to decreasing
 kroger %&gt;% group_by(`Commodity Name`) %&gt;%
   summarise(avgAUQ = mean(`Adjustment Unit Quantity`)) %&gt;% arrange(avgAUQ)</code></pre>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
 <pre><code>## # A tibble: 542 x 2
 ##    `Commodity Name`             avgAUQ
 ##    &lt;chr&gt;                         &lt;dbl&gt;
@@ -123,6 +125,7 @@ kroger %&gt;% group_by(`Commodity Name`) %&gt;%
 <pre class="r"><code># Sorting Average AUG per commodity from decreasing to increasing
 kroger %&gt;% group_by(`Commodity Name`) %&gt;%
   summarise(avgAUQ = mean(`Adjustment Unit Quantity`)) %&gt;% arrange(desc(avgAUQ))</code></pre>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
 <pre><code>## # A tibble: 542 x 2
 ##    `Commodity Name`             avgAUQ
 ##    &lt;chr&gt;                         &lt;dbl&gt;
