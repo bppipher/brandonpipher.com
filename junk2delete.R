@@ -100,3 +100,83 @@ colnames(metr) <- c(".pred","Sale_Price")
 res_lasso <- metr %>%   metrics(truth = Sale_Price,
                                 estimate = .pred)
 Metrics::rmsle(actual = metr$Sale_Price, predicted = sapply(metr$.pred,function(x) max(x,0)))
+
+##
+http://euclid.psych.yorku.ca/www/psy6135/tutorials/gapminder.html
+##
+library(tidyverse)
+library(plotly)
+library(scales)
+library(gapminder)
+gapminder <- gapminder::gapminder
+g<- gapminder %>% 
+  ggplot(aes(x = gdpPercap, y = lifeExp, color = continent, frame = year)) + 
+  geom_point(aes(size = pop, id = country), alpha = 0.4) + 
+  geom_smooth(method = "lm", formula = y~x, se = FALSE) +
+  scale_x_log10(labels = label_comma()) + 
+  scale_y_continuous(labels = label_comma()) + 
+  ggtitle("Life Expectancy of a Country by GDP per Capita")
+g %>% ggplotly() %>% config(displayModeBar = FALSE)
+##
+g <- gapminder %>%
+  ggplot(aes(
+    x = gdpPercap,
+    y = lifeExp,
+    color = continent,
+    frame = year
+  )) +
+  geom_point(aes(size = pop, id = country), alpha = 0.4) +
+  geom_smooth(method = "lm",
+              formula = y ~ x,
+              se = FALSE) +
+  scale_x_log10(labels = label_comma()) +
+  scale_size(name = "Population Scale", labels = label_comma()) +
+  ggtitle("Life Expectancy of a Country by GDP per Capita") +
+  labs(color = "Continent") +
+  xlab("GDP per Capita") +
+  ylab("Life Expectancy")
+g %>% ggplotly()
+animate(g + transition_time(year))
+##
+g <-gapminder %>%
+  ggplot(mapping = aes(x = gdpPercap,
+                       y = lifeExp,
+                       color = continent)) +
+  geom_point(mapping = aes(size = pop)) + 
+  geom_smooth(method = "lm",
+              se = FALSE,
+              formula = y~x) +
+  scale_x_log10(labels = scales::label_comma()) + 
+  labs(color = "Continent",
+       size = "Population",
+       y = "Life Expectancy",
+       x = "GDP per Capita") + 
+  scale_size(labels = scales::label_comma()) +
+  labs(title = "A",
+       subtitle = "B",
+       caption = "C",
+       tag = "D")
+animate(g + transition_time(year))
+####
+g <-gapminder %>%
+  ggplot(mapping = aes(x = gdpPercap,
+                       y = lifeExp,
+                       color = continent)) +
+  geom_point(mapping = aes(size = pop),
+             alpha = 0.4) + 
+  geom_smooth(method = "lm",
+              se = FALSE,
+              formula = y~x) +
+  scale_x_log10(labels = scales::label_comma()) + 
+  labs(color = "Continent",
+       size = "Population",
+       y = "Life Expectancy",
+       x = "GDP per Capita") + 
+  scale_size(labels = scales::label_comma()) +
+  labs(title = "Life Expectancy of a Country by GDP per Capita",
+       subtitle = "Year: {frame_time}",
+       caption = "Least Squares fit on Log10 transformed X",
+       tag = waiver())
+
+animate(g + transition_time(year), height = 800, width = 800)
+anim_save("test.gif")

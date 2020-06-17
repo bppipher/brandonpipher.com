@@ -9,8 +9,8 @@ tags:
   - R
   - Tidyverse
   - ggplot2
-subtitle: 'Data analysis on a month of Adjustment Unit Quantities'
-summary: 'Data analysis on a month of Adjustment Unit Quantities'
+subtitle: 'A 30-minute invesigation of a month of inventory adjustments'
+summary:  'A 30-minute invesigation of a month of inventory adjustments'
 authors: []
 lastmod: '2020-04-22T13:44:39-04:00'
 featured: no
@@ -20,7 +20,7 @@ image:
   preview_only: no
 projects: []
 math: true
-draft: true
+draft: false
 ---
 
 
@@ -28,12 +28,13 @@ draft: true
 <div id="about" class="section level1">
 <h1>About</h1>
 <p>The data set examined below contains inventory accuracy records from a number of Kroger Grocery stores. The ‘adjustment unit quantity’ is the unit variance that 3rd party auditors confirmed upon visiting a store, e.g., the first example below (-1) means that the auditing company found one less bowl of tropical fruit than the stores perpetual inventory had on record. The subsequent example (+14) means that the auditors counted fourteen more peach fruit bowls than the stores perpetual inventory.</p>
-<p>The objective was to work the data set in R and do the following:</p>
+<p>The objective was to work the data set in R and accomplish the following within 30 minutes:</p>
 <ul>
 <li>3 ‘actionable’ insights on inventory accuracy (by store, commodity, variance amounts, etc..)</li>
 <li>Plots with supporting insights that visualize your story in ggplot</li>
 <li>Documentation of your R script details</li>
 </ul>
+<p>While a fairly straightforward task it felt worthwhile to document this sort of assessment.</p>
 <p>The file is an .xlsb file which, when looking up, seemed notorious for being difficult to work with. Most recommendations I saw at the time were to utilize a local-server type setup so it could be accessed with SQL or using the <code>excel.link</code> package. As of this post there seems to have been a package specifically created on 04-13-2020 dedicated to solving this issue in R in a more elegant fashion <a href="https://cran.r-project.org/web/packages/readxlsb/vignettes/read-xlsb-workbook.html">here</a>. When I had done this write-up this package was unfortunately unavailable, and juggling the file type wasn’t a good use of time.</p>
 <p>However, mostly due to not being constrained by memory, my solution was to simply do a manual conversion from <code>.xlsb</code> to <code>.csv</code> with excel itself and was able to continue without any issue.</p>
 <pre class="r"><code>library(tidyverse)
