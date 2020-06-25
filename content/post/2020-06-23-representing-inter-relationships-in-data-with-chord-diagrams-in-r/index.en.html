@@ -1,0 +1,129 @@
+---
+title: Representing inter-relationships in data with Chord diagrams in R
+author: Brandon P. Pipher
+date: '2020-06-23'
+slug: []
+categories:
+  - Data Visualization
+tags:
+  - circlize
+  - chorddiag
+subtitle: |
+  Chord Diagrams: Gotta Catch \'Em All!
+summary: 'abc'
+authors: []
+lastmod: '2020-06-23T20:13:47-04:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+draft: true
+---
+
+<script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="/rmarkdown-libs/d3/d3.min.js"></script>
+<script src="/rmarkdown-libs/d3-tip/index.js"></script>
+<link href="/rmarkdown-libs/chorddiag/chorddiag.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/chorddiag/chorddiag.js"></script>
+<script src="/rmarkdown-libs/chorddiag-binding/chorddiag.js"></script>
+
+
+<pre class="r"><code>library(circlize)
+library(chorddiag)
+library(tidyverse)</code></pre>
+<pre class="r"><code>pokemon_data &lt;- read_csv(&quot;~/Python files/pandas-master/pokemon_data.csv&quot;)</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   `#` = col_double(),
+##   Name = col_character(),
+##   `Type 1` = col_character(),
+##   `Type 2` = col_character(),
+##   HP = col_double(),
+##   Attack = col_double(),
+##   Defense = col_double(),
+##   `Sp. Atk` = col_double(),
+##   `Sp. Def` = col_double(),
+##   Speed = col_double(),
+##   Generation = col_double(),
+##   Legendary = col_logical()
+## )</code></pre>
+<pre class="r"><code>pokemon &lt;- 
+  pokemon_data %&gt;% 
+  filter(str_detect(Name,&quot;Mega &quot;,
+                    negate = TRUE)) %&gt;%
+  filter(!duplicated(`#`))
+
+pokecount &lt;-
+  pokemon %&gt;%
+  count(`Type 1`,`Type 2`, sort = TRUE) %&gt;%
+  mutate(`Type 2` = coalesce(`Type 2`,`Type 1`))
+
+circlize::chordDiagram(pokecount)</code></pre>
+<p><img src="/post/2020-06-23-representing-inter-relationships-in-data-with-chord-diagrams-in-r/index.en_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<pre class="r"><code>pokecount_mat &lt;- 
+  pokecount %&gt;%
+  pivot_wider(names_from = &#39;Type 2&#39;,
+              values_from = n) %&gt;%
+  replace(is.na(.),0)
+
+#pokecount_mat &lt;- pokecount_mat %&gt;% arrange(&quot;Type 1&quot;) %&gt;% column_to_rownames(&quot;Type 1&quot;)
+pokecount_mat &lt;- pokecount_mat[c(&quot;Type 1&quot;,pokecount_mat %&gt;% select(&quot;Type 1&quot;) %&gt;% unique() %&gt;% as.matrix %&gt;% as.character())]
+pokecount_mat &lt;- pokecount_mat %&gt;% column_to_rownames(&quot;Type 1&quot;) %&gt;% as.matrix()
+
+# pokecount_mat &lt;- 
+#   pokecount_mat %&gt;%
+#   column_to_rownames(var = &quot;Type 1&quot;) %&gt;%
+#   as.matrix()
+
+chorddiag::chorddiag(pokecount_mat)</code></pre>
+<pre><code>## Warning in RColorBrewer::brewer.pal(n, palette): n too large, allowed maximum for palette Dark2 is 8
+## Returning the palette you asked for with that many colors</code></pre>
+<div id="htmlwidget-1" style="width:672px;height:480px;" class="chorddiag html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"matrix":[[60,1,2,2,0,0,0,0,4,0,1,0,0,0,0,0,0,23],[0,57,3,4,0,2,2,0,2,3,9,3,2,4,2,4,1,7],[0,0,33,2,0,0,3,0,2,14,1,2,0,3,0,0,2,4],[0,0,1,32,1,0,1,0,5,0,0,0,0,0,1,0,0,6],[2,1,0,1,28,0,6,0,0,0,2,0,0,0,0,1,1,5],[2,0,0,0,0,26,0,0,1,0,0,0,0,0,1,0,3,3],[0,0,0,2,0,0,20,0,0,0,0,0,0,1,0,0,1,1],[0,1,6,0,2,2,1,17,0,11,1,0,0,0,1,3,5,13],[0,0,0,0,0,0,0,0,15,0,0,0,0,0,0,0,0,2],[0,1,0,0,0,0,2,1,0,15,2,0,1,3,0,0,0,3],[0,0,0,2,0,1,0,0,0,0,13,0,2,3,2,3,1,3],[0,3,0,2,0,0,0,0,0,0,3,12,0,0,1,0,0,2],[0,0,0,2,1,1,0,0,0,0,4,1,11,0,0,0,0,4],[0,0,0,2,2,0,2,0,0,0,0,2,3,9,1,0,2,5],[0,0,4,0,3,0,0,0,0,3,0,0,1,1,9,0,0,2],[0,6,2,2,0,0,1,2,2,0,6,2,2,1,0,9,3,3],[0,0,0,6,0,0,1,0,2,0,1,0,1,0,3,3,4,1],[0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,1]],"options":{"type":"directional","width":null,"height":null,"margin":100,"showGroupnames":true,"groupNames":["Normal","Water","Grass","Psychic","Fire","Electric","Fighting","Bug","Fairy","Poison","Ground","Ice","Dragon","Dark","Ghost","Rock","Steel","Flying"],"groupColors":["#1B9E77","#D95F02","#7570B3","#E7298A","#66A61E","#E6AB02","#A6761D","#666666"],"groupThickness":0.1,"groupPadding":0.0349065850398866,"groupnamePadding":[30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30],"groupnameFontsize":18,"groupedgeColor":null,"chordedgeColor":"#808080","categoryNames":null,"categorynamePadding":100,"categorynameFontsize":28,"showTicks":true,"tickInterval":1,"ticklabelFontsize":10,"fadeLevel":0.1,"showTooltips":true,"showZeroTooltips":true,"tooltipNames":["Normal","Water","Grass","Psychic","Fire","Electric","Fighting","Bug","Fairy","Poison","Ground","Ice","Dragon","Dark","Ghost","Rock","Steel","Flying"],"tooltipFontsize":12,"tooltipUnit":"","tooltipGroupConnector":" &#x25B6; ","precision":"null","clickAction":null,"clickGroupAction":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>pokecount %&gt;%
+  tidygraph::as_tbl_graph() %&gt;%
+  igraph::as_adjacency_matrix(attr = &quot;n&quot;) %&gt;%
+  as.matrix() %&gt;%
+  chorddiag::chorddiag()</code></pre>
+<pre><code>## Warning in RColorBrewer::brewer.pal(n, palette): n too large, allowed maximum for palette Dark2 is 8
+## Returning the palette you asked for with that many colors</code></pre>
+<div id="htmlwidget-2" style="width:672px;height:480px;" class="chorddiag html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2">{"x":{"matrix":[[60,1,2,2,0,0,0,0,4,0,1,0,0,0,0,0,0,23],[0,57,3,4,0,2,2,0,2,3,9,3,2,4,2,4,1,7],[0,0,33,2,0,0,3,0,2,14,1,2,0,3,0,0,2,4],[0,0,1,32,1,0,1,0,5,0,0,0,0,0,1,0,0,6],[2,1,0,1,28,0,6,0,0,0,2,0,0,0,0,1,1,5],[2,0,0,0,0,26,0,0,1,0,0,0,0,0,1,0,3,3],[0,0,0,2,0,0,20,0,0,0,0,0,0,1,0,0,1,1],[0,1,6,0,2,2,1,17,0,11,1,0,0,0,1,3,5,13],[0,0,0,0,0,0,0,0,15,0,0,0,0,0,0,0,0,2],[0,1,0,0,0,0,2,1,0,15,2,0,1,3,0,0,0,3],[0,0,0,2,0,1,0,0,0,0,13,0,2,3,2,3,1,3],[0,3,0,2,0,0,0,0,0,0,3,12,0,0,1,0,0,2],[0,0,0,2,1,1,0,0,0,0,4,1,11,0,0,0,0,4],[0,0,0,2,2,0,2,0,0,0,0,2,3,9,1,0,2,5],[0,0,4,0,3,0,0,0,0,3,0,0,1,1,9,0,0,2],[0,6,2,2,0,0,1,2,2,0,6,2,2,1,0,9,3,3],[0,0,0,6,0,0,1,0,2,0,1,0,1,0,3,3,4,1],[0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,1]],"options":{"type":"directional","width":null,"height":null,"margin":100,"showGroupnames":true,"groupNames":["Normal","Water","Grass","Psychic","Fire","Electric","Fighting","Bug","Fairy","Poison","Ground","Ice","Dragon","Dark","Ghost","Rock","Steel","Flying"],"groupColors":["#1B9E77","#D95F02","#7570B3","#E7298A","#66A61E","#E6AB02","#A6761D","#666666"],"groupThickness":0.1,"groupPadding":0.0349065850398866,"groupnamePadding":[30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30],"groupnameFontsize":18,"groupedgeColor":null,"chordedgeColor":"#808080","categoryNames":null,"categorynamePadding":100,"categorynameFontsize":28,"showTicks":true,"tickInterval":1,"ticklabelFontsize":10,"fadeLevel":0.1,"showTooltips":true,"showZeroTooltips":true,"tooltipNames":["Normal","Water","Grass","Psychic","Fire","Electric","Fighting","Bug","Fairy","Poison","Ground","Ice","Dragon","Dark","Ghost","Rock","Steel","Flying"],"tooltipFontsize":12,"tooltipUnit":"","tooltipGroupConnector":" &#x25B6; ","precision":"null","clickAction":null,"clickGroupAction":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>#pokecount_mat &lt;- pokecount_mat %&gt;% arrange(`Type 1`) %&gt;% column_to_rownames(&quot;Type 1&quot;)</code></pre>
+<p><a href="https://www.r-graph-gallery.com/chord-diagram.html" class="uri">https://www.r-graph-gallery.com/chord-diagram.html</a></p>
+<p><a href="https://xang1234.github.io/chorddiagrams/" class="uri">https://xang1234.github.io/chorddiagrams/</a></p>
+<p><a href="https://jokergoo.github.io/circlize_book/book/the-chorddiagram-function.html" class="uri">https://jokergoo.github.io/circlize_book/book/the-chorddiagram-function.html</a></p>
+<p><a href="https://www.r-graph-gallery.com/123-circular-plot-circlize-package-2.html" class="uri">https://www.r-graph-gallery.com/123-circular-plot-circlize-package-2.html</a></p>
+<p><a href="https://www.r-graph-gallery.com/chord-diagram-interactive.html" class="uri">https://www.r-graph-gallery.com/chord-diagram-interactive.html</a></p>
+<pre class="r"><code># pokemon_data %&gt;%
+#     filter(Legendary == TRUE) %&gt;%
+#     filter(str_detect(Name,&quot;Mega &quot;,
+#                       negate = TRUE)) %&gt;%
+#     filter(is.na(`Type 2`)) %&gt;%
+#     mutate(`Type 2` = `Type 1`)
+# 
+#     pokemon_data %&gt;%
+#     filter(Legendary == TRUE) %&gt;%
+#     filter(str_detect(Name,&quot;Mega &quot;,
+#                       negate = TRUE)) %&gt;%
+#     filter(is.na(`Type 2`))
+#
+# pokemon_data %&gt;%
+#     filter(Legendary == TRUE) %&gt;%
+#     filter(`Type 1` = &quot;Psychic&quot;) %&gt;%
+#     filter(str_detect(Name,&quot;Mega &quot;,
+#                       negate = TRUE)) %&gt;%
+#     #filter(is.na(`Type 2`)) %&gt;%
+#     count(`Type 1`,`Type 2`) %&gt;%
+#     mutate(`Type 2` = coalesce(`Type 2`,`Type 1`))
+# 
+# pokemon_data %&gt;%
+#     filter(Legendary == TRUE) %&gt;%
+#     filter(`Type 1` %in% c(&quot;Psychic&quot;,&quot;Dragon&quot;)) %&gt;%
+#     filter(str_detect(Name,&quot;Mega &quot;,
+#                       negate = TRUE)) %&gt;%
+#     #filter(is.na(`Type 2`)) %&gt;%
+#     count(`Type 1`,`Type 2`) %&gt;%
+#     mutate(`Type 2` = coalesce(`Type 2`,`Type 1`))</code></pre>

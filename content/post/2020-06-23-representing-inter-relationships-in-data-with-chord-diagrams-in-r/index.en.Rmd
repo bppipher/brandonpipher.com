@@ -1,0 +1,114 @@
+---
+title: Representing inter-relationships in data with Chord diagrams in R
+author: Brandon P. Pipher
+date: '2020-06-23'
+slug: []
+categories:
+  - Data Visualization
+tags:
+  - circlize
+  - chorddiag
+subtitle: |
+  Chord Diagrams: Gotta Catch \'Em All!
+summary: 'abc'
+authors: []
+lastmod: '2020-06-23T20:13:47-04:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+draft: true
+---
+
+```{r, message = FALSE, warning = FALSE}
+library(circlize)
+library(chorddiag)
+library(tidyverse)
+```
+
+
+```{r}
+pokemon_data <- read_csv("~/Python files/pandas-master/pokemon_data.csv")
+
+pokemon <- 
+  pokemon_data %>% 
+  filter(str_detect(Name,"Mega ",
+                    negate = TRUE)) %>%
+  filter(!duplicated(`#`))
+
+pokecount <-
+  pokemon %>%
+  count(`Type 1`,`Type 2`, sort = TRUE) %>%
+  mutate(`Type 2` = coalesce(`Type 2`,`Type 1`))
+
+circlize::chordDiagram(pokecount)
+
+pokecount_mat <- 
+  pokecount %>%
+  pivot_wider(names_from = 'Type 2',
+              values_from = n) %>%
+  replace(is.na(.),0)
+
+#pokecount_mat <- pokecount_mat %>% arrange("Type 1") %>% column_to_rownames("Type 1")
+pokecount_mat <- pokecount_mat[c("Type 1",pokecount_mat %>% select("Type 1") %>% unique() %>% as.matrix %>% as.character())]
+pokecount_mat <- pokecount_mat %>% column_to_rownames("Type 1") %>% as.matrix()
+
+# pokecount_mat <- 
+#   pokecount_mat %>%
+#   column_to_rownames(var = "Type 1") %>%
+#   as.matrix()
+
+chorddiag::chorddiag(pokecount_mat)
+
+pokecount %>%
+  tidygraph::as_tbl_graph() %>%
+  igraph::as_adjacency_matrix(attr = "n") %>%
+  as.matrix() %>%
+  chorddiag::chorddiag()
+
+#pokecount_mat <- pokecount_mat %>% arrange(`Type 1`) %>% column_to_rownames("Type 1")
+```
+https://www.r-graph-gallery.com/chord-diagram.html
+
+https://xang1234.github.io/chorddiagrams/
+
+https://jokergoo.github.io/circlize_book/book/the-chorddiagram-function.html
+
+https://www.r-graph-gallery.com/123-circular-plot-circlize-package-2.html
+
+https://www.r-graph-gallery.com/chord-diagram-interactive.html
+
+```{r}
+# pokemon_data %>%
+#     filter(Legendary == TRUE) %>%
+#     filter(str_detect(Name,"Mega ",
+#                       negate = TRUE)) %>%
+#     filter(is.na(`Type 2`)) %>%
+#     mutate(`Type 2` = `Type 1`)
+# 
+#     pokemon_data %>%
+#     filter(Legendary == TRUE) %>%
+#     filter(str_detect(Name,"Mega ",
+#                       negate = TRUE)) %>%
+#     filter(is.na(`Type 2`))
+#
+# pokemon_data %>%
+#     filter(Legendary == TRUE) %>%
+#     filter(`Type 1` = "Psychic") %>%
+#     filter(str_detect(Name,"Mega ",
+#                       negate = TRUE)) %>%
+#     #filter(is.na(`Type 2`)) %>%
+#     count(`Type 1`,`Type 2`) %>%
+#     mutate(`Type 2` = coalesce(`Type 2`,`Type 1`))
+# 
+# pokemon_data %>%
+#     filter(Legendary == TRUE) %>%
+#     filter(`Type 1` %in% c("Psychic","Dragon")) %>%
+#     filter(str_detect(Name,"Mega ",
+#                       negate = TRUE)) %>%
+#     #filter(is.na(`Type 2`)) %>%
+#     count(`Type 1`,`Type 2`) %>%
+#     mutate(`Type 2` = coalesce(`Type 2`,`Type 1`))
+```
