@@ -67,9 +67,11 @@ circlize::chordDiagram(pokecount)
 
 Looking at the above, I think the "too much information" approach is demonstrated fairly well.
 
-However, I did find a package to accomplish this that I've become rather fond of:  Enter `chorddiag`.  The `chorddiag` package isn't hosted on CRAN, but you can find it on [github here](https://github.com/mattflor/chorddiag).  The gist of `chorddiag` is that it allows you to create interactive chord diagrams by way of the JavaScript visualization library D3 (http://d3js.org).  It works from within R using the htmlwidgets interfacing framework.
+However, I did find a package to accomplish this that I've become rather fond of: `chorddiag`.  
 
-To use the default before rather than a frequency table we need to produce an adjacency matrix.  I did this the manual way at first:
+The `chorddiag` package isn't hosted on CRAN, but you can find it on [github here](https://github.com/mattflor/chorddiag).  The gist of `chorddiag` is that it allows you to create interactive chord diagrams by way of the JavaScript visualization library D3 (http://d3js.org).  It works from within R using the htmlwidgets interfacing framework.
+
+To use the default plotting function we will need an adjacency matrix rather than a frequency table.  I did this the manual way at first:
 
 ```{r, warning = FALSE}
 pokecount_mat <- 
@@ -93,7 +95,7 @@ pokecount_mat <-
 chorddiag::chorddiag(pokecount_mat)
 ```
 
-Though there is also a more automoted way using `igraph` and `tidygraph`:
+Though I had also found there is also a more automated way using `igraph` and `tidygraph`:
 ```{r, warning = FALSE}
 # Using igraph and tidygraph to reshape
 pokecount %>%
@@ -104,7 +106,7 @@ pokecount %>%
   chorddiag::chorddiag()
 ```
 
-Talk about an efficient workflow!  Comparing the two I think it becomes strikingly clear how much interactivity adds to this plot.  Of course interactivity isn't always feasible for every medium, and that is where working off of `circlize` would likely have a distinct advantage.
+Talk about an efficient work flow!  Comparing the two I think it becomes strikingly clear how much interactivity adds to this plot.  Of course interactivity isn't always feasible for every medium, and that is where working off of `circlize` would likely have a distinct advantage.
 
 ```{r, eval = FALSE, echo = FALSE}
 #pokecount_mat <- pokecount_mat %>% arrange(`Type 1`) %>% column_to_rownames("Type 1")
