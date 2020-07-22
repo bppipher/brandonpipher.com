@@ -1,0 +1,28 @@
+---
+title: Resources
+author: First Last
+date: 'YYYY-MM-DD'
+slug: short-slug-to-use
+categories:
+  - x
+  - y
+  - x
+tags:
+  - a
+header:
+  caption: ''
+  image: ''
+summary: "Short summary"
+highlight: false
+draft: true
+---
+
+words
+
+#
+
+Words
+
+## 
+
+words
