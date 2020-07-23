@@ -19,15 +19,16 @@ image:
   focal_point: ''
   preview_only: no
 projects: []
+draft: true
 ---
 
 # Preface
 
-Below will be the details on a Technical Assessment I had completed.  
+Below will be the details on a Technical Assessment I had completed for Dealer Tire.  
 
-I essentially had a 48 hour window to find time to complete it, and I had spent a few hours on examining and understanding the data set and trying to determine what insights could be of value.  Ultimately I feel the end result was rather straightforward, but for being data pulled directly the the U.S. Department of Transportation's NHTSA website, I was a little disappointed in the quality of the documentation!
+I essentially had a 48 hour window to complete it, and I had spent a few hours on examining and understanding the data set and trying to determine what insights could be of value.
 
-======================
+# Assessment
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
