@@ -16,7 +16,7 @@ authors: []
 lastmod: '2020-04-14T14:09:00-04:00'
 featured: no
 image:
-  caption: 'Plerogyra sinuosa (Bubble Coral)'
+  caption: 'Cynarina (Cynarina lacrymalis)'
   focal_point: ''
   preview_only: no
 projects: []

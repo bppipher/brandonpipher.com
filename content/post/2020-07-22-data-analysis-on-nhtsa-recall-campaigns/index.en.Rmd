@@ -15,18 +15,18 @@ authors: []
 lastmod: '2020-07-22T11:53:56-04:00'
 featured: no
 image:
-  caption: 'Duncan (Duncanopsammia axifuga)'
+  caption: '(Stonogobiops yasha and Ricordea yuma)'
   focal_point: ''
   preview_only: no
 projects: []
-draft: true
+draft: false
 ---
 
 # Preface
 
 Below will be the details on a Technical Assessment I had completed for Dealer Tire.  
 
-I essentially had a 48 hour window to complete it, and I had spent a few hours on examining and understanding the data set and trying to determine what insights could be of value.
+It was given with a 48 hour window to complete it.  I had spent a few hours examining and understanding the data set and then trying to determine what insights could be of value.
 
 # Assessment
 
