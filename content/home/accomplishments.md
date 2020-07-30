@@ -10,7 +10,7 @@ subtitle = ""
 
 # Date format
 #   Refer to https://sourcethemes.com/academic/docs/customization/#date-format
-date_format = "Jan 2006"
+date_format = "Jan. 2006"
 
 # Accomplishments.
 #   Add/remove as many `[[item]]` blocks below as you like.
@@ -39,6 +39,16 @@ date_format = "Jan 2006"
 #   description = "Formulated informed blockchain models, hypotheses, and use cases."
 
 [[item]]
+  organization = "American Statistical Association - KY Chapter"
+  organization_url = "https://community.amstat.org/kentucky/home"
+  title = "Data Mining Short Course by Richard De Veaux"
+  url = "files/courses_trainings/asaky-2018-datamining-deveaux.pdf"
+  certificate_url = ""
+  date_start = "2018-10-13"
+  date_end = ""
+  description = ""
+  
+[[item]]
   organization = "American Statistical Association"
   organization_url = "http://www.amstat.org/"
   title = "Graduate Statistician (GStat)"
@@ -47,5 +57,5 @@ date_format = "Jan 2006"
   date_start = "2020-06-03"
   date_end = "2028-06-30"
   description = ""
-
+  
 +++
