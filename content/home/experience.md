@@ -26,9 +26,9 @@ date_format = "Jan. 2006"
   date_start = "2017-08-01"
   date_end = ""
   description = """
-  Instructor for various Mathematics courses ranging from Algebra to Calculus.
+  Instructor for various Mathematics courses ranging from Algebra to Calculus
   
-  Lead the integration of a new course environment for the online Algebra sequences.
+  Lead the integration of a new course environment for the online Algebra sequences
   """
 
 +++
