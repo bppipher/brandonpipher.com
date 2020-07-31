@@ -39,7 +39,7 @@ The file is an .xlsb file which, when looking up, seemed notorious for being dif
 However, mostly due to not being constrained by memory, my solution was to simply do a manual conversion from `.xlsb` to `.csv` with excel itself and was able to continue without any issue.
 
 ```{r, echo = FALSE}
-knitr::opts_chunk$set(cache = TRUE)
+knitr::opts_chunk$set(cache = FALSE)
 ```
 
 ```{r, message = FALSE, warning = FALSE}
