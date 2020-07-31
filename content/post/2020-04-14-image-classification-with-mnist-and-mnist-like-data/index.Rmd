@@ -339,3 +339,5 @@ cifar10_model %>%
 ```
 
 Unsurprisingly a more involved model is needed for CIFAR10.  Training such models are a little more intensive than I want to host on my current hardware, so this is as far as I intend to take this post.  It is interesting that including color wasn't as drastic of an effect.  Regardless hitting 30%+ in seconds of training is still noteworthy considering the CIFAR10 images are much less uniform in characteristics.
+
+

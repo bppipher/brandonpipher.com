@@ -20,6 +20,7 @@ image:
   preview_only: no
 projects: []
 ---
+
 ```{r, include = FALSE}
 # This fixes a scrollbar not appearing for a better overall appearance
 options(width=300)

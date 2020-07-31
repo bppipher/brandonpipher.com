@@ -32,9 +32,10 @@ library(tidyverse)
 ```{r, echo = FALSE, message = FALSE, warning = FALSE}
 pokemon_data <- read_csv("~/Python files/pandas-master/pokemon_data.csv")
 ```
-I've noticed Chord diagrams to be growing in popularity recently, and mostly by people utilizing Python.  I've also noticed with Flourish's API you can seemingly produce these Chord diagrams fairly easily, but you can skip outside software as these diagrams can be made with a few different packages in R.
 
-The `circlize` is fairly straightforward, especially with its [detailed documentation](https://jokergoo.github.io/circlize_book/book/), but I often prefer the interactivity other methods offer.  Chord diagrams quickly produce too much information and being able to browse individual Chords goes a long way in producing an effective presentation.  Another alternative is with `Plotly`, but it requires a fair amount of effort.  I had also [recently learned](https://python-graph-gallery.com/chord-diagram/) that `Bokeh` can also produce these.
+I've noticed Chord diagrams to be growing in popularity recently, and mostly by people utilizing Python or Flourish.  Taking this as inspiration, I had hoped to do the same using R.
+
+The `circlize` package is fairly straightforward, especially with its [detailed documentation](https://jokergoo.github.io/circlize_book/book/), but I often prefer the interactivity other methods offer.  Chord diagrams quickly produce too much information and being able to browse individual Chords goes a long way in producing an effective presentation.  Another alternative is with `Plotly`, but it requires a fair amount of effort.  I had also [recently learned](https://python-graph-gallery.com/chord-diagram/) that `Bokeh` can also produce these.
 
 For the showcase data I'll stick with a Pokemon dataset that I've seen used for various visualizations.  The dataset in question is [here](https://www.kaggle.com/abcsds/pokemon), but another equally interesting dataset is [here](https://www.kaggle.com/rounakbanik/pokemon?select=pokemon.csv)
 

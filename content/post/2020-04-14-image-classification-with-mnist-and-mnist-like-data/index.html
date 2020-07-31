@@ -129,10 +129,10 @@ mnist_test$x  &lt;- mnist_test$x/255</code></pre>
 <pre class="r fold-show"><code>mnist_model %&gt;% 
   evaluate(mnist_test$x, mnist_test$y, verbose = 0)</code></pre>
 <pre><code>## $loss
-## [1] 0.08440205
+## [1] 0.08473677
 ## 
 ## $acc
-## [1] 0.9731</code></pre>
+## [1] 0.9733</code></pre>
 <p>To hit around 97% accuracy with little effort is pretty impressive. The MNIST data set is pretty boring, however, so lets try something harder.</p>
 </div>
 <div id="fashion-mnist" class="section level1">
@@ -191,10 +191,10 @@ fashion_test$x  &lt;- fashion_test$x/255</code></pre>
 <pre class="r fold-show"><code>fashion_model %&gt;% 
   evaluate(fashion_test$x, fashion_test$y, verbose = 0)</code></pre>
 <pre><code>## $loss
-## [1] 0.3661142
+## [1] 0.371763
 ## 
 ## $acc
-## [1] 0.8673</code></pre>
+## [1] 0.8702</code></pre>
 <p>Its worth pointing out that handling the FASHION MNIST dataset required nearly no difference in setup that the MNIST dataset, and we still also achieved 85%+ prediction accuracy.</p>
 </div>
 <div id="cifar-10" class="section level1">
@@ -256,10 +256,10 @@ cifar10_bw_predictions &lt;- predict(cifar10_bw_model, cifar10_bw_test$x)
 cifar10_bw_model %&gt;% 
   evaluate(cifar10_bw_test$x, cifar10_bw_test$y, verbose = 0)</code></pre>
 <pre><code>## $loss
-## [1] 1.970853
+## [1] 1.957393
 ## 
 ## $acc
-## [1] 0.2839</code></pre>
+## [1] 0.2944</code></pre>
 <pre class="r fold-show"><code>cifar10_model &lt;- keras_model_sequential() %&gt;%
   layer_flatten(input_shape = c(32,32,3)) %&gt;%
   layer_dense(units = 128, activation = &quot;relu&quot;) %&gt;%
@@ -286,9 +286,9 @@ cifar10_predictions &lt;- predict(cifar10_model, cifar10_test$x)
 cifar10_model %&gt;% 
   evaluate(cifar10_test$x, cifar10_test$y, verbose = 0)</code></pre>
 <pre><code>## $loss
-## [1] 1.88282
+## [1] 1.78544
 ## 
 ## $acc
-## [1] 0.3049</code></pre>
+## [1] 0.3588</code></pre>
 <p>Unsurprisingly a more involved model is needed for CIFAR10. Training such models are a little more intensive than I want to host on my current hardware, so this is as far as I intend to take this post. It is interesting that including color wasn’t as drastic of an effect. Regardless hitting 30%+ in seconds of training is still noteworthy considering the CIFAR10 images are much less uniform in characteristics.</p>
 </div>

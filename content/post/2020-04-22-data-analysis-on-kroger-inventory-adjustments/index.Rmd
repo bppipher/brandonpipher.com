@@ -22,7 +22,6 @@ projects: []
 math: true
 draft: false
 ---
-
 # About
 
 The data set examined below contains inventory accuracy records from a number of Kroger Grocery stores. The ‘adjustment unit quantity’ is the unit variance that 3rd party auditors confirmed upon visiting a store, e.g., the first example below (-1) means that the auditing company found one less bowl of tropical fruit than the stores perpetual inventory had on record. The subsequent example (+14) means that the auditors counted fourteen more peach fruit bowls than the stores perpetual inventory.
