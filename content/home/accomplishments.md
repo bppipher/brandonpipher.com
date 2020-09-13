@@ -58,4 +58,14 @@ date_format = "Jan. 2006"
   date_end = "2028-06-30"
   description = ""
   
+[[item]]
+  organization = "American Statistical Association - KY Chapter"
+  organization_url = "https://community.amstat.org/kentucky/home"
+  title = "Analysis of Big Healthcare Databases Short Course by Rebecca Hubbard"
+  url = "files/courses_trainings/AMSTAT-KY Presents the Analysis of Big Healthcare Databases Course.pdf"
+  certificate_url = ""
+  date_start = "2020-10-17"
+  date_end = ""
+  description = ""
+  
 +++
